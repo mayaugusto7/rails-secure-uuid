@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: rails_secure_uuid_db
+  username: <%= ENV["PG_USER"] %>
+  password: <%= ENV["PG_PASSWORD"] %>
+  host: localhost
+  port: 5434
+  schema_search_path: public
+
+  # Minimum log levels, in increasing order:
+  #   debug5, debug4, debug3, debug2, debug1,
+  #   log, notice, warning, error, fatal, and panic
+  # Defaults to warning.
+  #min_messages: notice
+
+production:
+  <<: *default
+  database: rails_secure_uuid_production
+  username: rails_secure_uuid
+  password: <%= ENV["RAILS_SECURE_UUID_DATABASE_PASSWORD"] %>
